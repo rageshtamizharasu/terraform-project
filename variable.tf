@@ -1,3 +1,10 @@
+variable "aws_regions" {
+  description = "A list of AWS regions"
+  type        = list(string)
+  default     = ["us-east-1", "us-west-2", "eu-west-1", "ap-southeast-2", "sa-east-1","ap-south-1"]
+}
+
+
 variable "ec2name" {
   type    = list(any)
   default = ["dev", "Test", "prod"]

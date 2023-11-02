@@ -1,4 +1,4 @@
 provider "aws" {
-  region = "ap-south-1" # Mumbai region
+  region = var.aws_regions[5]# Mumbai region
+}  
   # AWS CLI Configure VSCODE
-}
