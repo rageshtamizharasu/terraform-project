@@ -6,6 +6,7 @@ provider "aws" {
 
 
 #---------------------DigitalOcean--------------------------
+/*
 terraform {
   required_providers {
     digitalocean = {
@@ -16,3 +17,4 @@ terraform {
     }
   }
 }
+*/

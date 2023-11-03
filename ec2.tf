@@ -4,30 +4,27 @@ locals {
     service = "backend"
   }
 }
-#----------------Don't Touch the Tags----------------------------------
-/*
-resource "aws_instance" "applications" {
-  ami           = var.ami_ids["windows"] # Use the [Ubuntu]
-  instance_type = "t2.micro"
-  tags          = local.common_tags
 
-}
+#---------------------------------------------------------
 
-resource "aws_instance" "ubuntumachine" {
-  ami           = var.ami_ids["ubuntu"] # Use the [Ubuntu]
-  instance_type = "t2.micro"
-  tags          = local.common_tags
-}
-*/
 
-resource "aws_instance" "app" {
-  for_each      = toset(["Development", "Test", "Production"]) #  3 Names 
-  ami           = var.ami_ids["amazonlinux"]                   #   Using amazon linux
+resource "aws_instance" "terraforma" {
+  ami = var.ami_ids["amazonlinux"]
   instance_type = "t2.micro"
-  tags = {
-    Name        = "instance-${each.key}" # for each key toset itwill Create instance
-    Environment = each.key
+  key_name = "terraform"
+
+  connection {
+    type = "ssh"
+    user = "ec2-user"
+    private_key = file("./terraform.pem")
+    host = self.public_ip
+  }
+  
+  provisioner "remote-exec" {
+    inline = [ 
+      "sudo yum update -y",
+      "sudo yum install httpd -y",
+      "sudo systemctl start httpd"
+     ]
   }
 }
-
-
