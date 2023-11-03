@@ -7,6 +7,7 @@ locals {
 
 #---------------------------------------------------------
 
+# Note: not added SG Ports  
 
 resource "aws_instance" "terraforma" {
   ami = var.ami_ids["amazonlinux"]
@@ -16,7 +17,7 @@ resource "aws_instance" "terraforma" {
   connection {
     type = "ssh"
     user = "ec2-user"
-    private_key = file("./terraform.pem")
+    private_key = file("./terraform.pem")   
     host = self.public_ip
   }
   
