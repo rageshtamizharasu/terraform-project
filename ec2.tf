@@ -1,6 +1,6 @@
 locals {
   common_tags = {
-    owner   = "devops"
+    role    = "DevOps"
     service = "backend"
   }
 }
@@ -21,11 +21,11 @@ resource "aws_instance" "ubuntumachine" {
 */
 
 resource "aws_instance" "app" {
-  for_each      = toset(["dev", "test", "prod"]) #  3 Names 
-  ami           = var.ami_ids["amazonlinux"]     #   Using amazon linux
+  for_each      = toset(["Development", "Test", "Production"]) #  3 Names 
+  ami           = var.ami_ids["amazonlinux"]                   #   Using amazon linux
   instance_type = "t2.micro"
   tags = {
-    Name        = "instance-${each.key}"          # for each key toset itwill Create instance
+    Name        = "instance-${each.key}" # for each key toset itwill Create instance
     Environment = each.key
   }
 }
